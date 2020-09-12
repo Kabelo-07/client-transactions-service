@@ -7,27 +7,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TransactionResponseDTO {
+public class TransactionResponseDTO implements Serializable {
 
     List<TransactionDTO> transactions;
-    @JsonProperty("First Name")
     private String firstName;
-    @JsonProperty("Last Name")
     private String lastName;
-    @JsonProperty("Full Name")
     private String fullName;
-    @JsonProperty("Mobile Number")
     private String mobileNumber;
-    @JsonProperty("Id Number")
     private String idNumber;
-    @JsonProperty("Physical Address")
+    @JsonProperty("Physical_Address")
     private PhysicalAddressDTO physicalAddressDTO;
 }

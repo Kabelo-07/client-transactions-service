@@ -5,7 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Pattern;
+
+import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.VALIDATE_MOBILE_NUMBER_REGEX;
+import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.VALID_SA_MOBILE_NUMBER;
 
 @Data
 @Builder
@@ -13,10 +16,6 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 public class SearchByPhoneNumberRequestDTO {
 
-    private static final String MOBILE_NUMBER_NON_NULL = "Mobile number cannot be empty or null";
-    private static final String VALID_SA_MOBILE_NUMBER = "Must be a valid SA Mobile Number";
-
-    @NotEmpty(message = MOBILE_NUMBER_NON_NULL)
-    @Pattern(regexp = "^27[0-9]{9}",message = VALID_SA_MOBILE_NUMBER)
+    @Pattern(regexp = VALIDATE_MOBILE_NUMBER_REGEX, message = VALID_SA_MOBILE_NUMBER)
     String phoneNumber;
 }

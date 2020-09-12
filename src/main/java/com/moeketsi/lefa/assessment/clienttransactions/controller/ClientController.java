@@ -5,14 +5,12 @@ import com.moeketsi.lefa.assessment.clienttransactions.dto.response.ResultMessag
 import com.moeketsi.lefa.assessment.clienttransactions.dto.response.TransactionResponseDTO;
 import com.moeketsi.lefa.assessment.clienttransactions.repository.ClientRepository;
 import com.moeketsi.lefa.assessment.clienttransactions.service.ClientTransactionService;
+import com.moeketsi.lefa.assessment.clienttransactions.util.ClientTransactionMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -21,15 +19,16 @@ import javax.validation.Valid;
 @Validated
 public class ClientController {
 
-
-    private final ClientRepository clientRepository;
-
     private final ClientTransactionService clientTransactionService;
 
+    private final ClientRepository clientRepository;
+    private final ClientTransactionMapper clientTransactionMapper;
+
     @Autowired
-    public ClientController(final ClientRepository clientRepository, final ClientTransactionService clientTransactionService) {
-        this.clientRepository = clientRepository;
+    public ClientController(final ClientRepository clientRepository, final ClientTransactionService clientTransactionService, ClientRepository clientRepository1, ClientTransactionMapper clientTransactionMapper) {
         this.clientTransactionService = clientTransactionService;
+        this.clientRepository = clientRepository1;
+        this.clientTransactionMapper = clientTransactionMapper;
     }
 
     @SneakyThrows
@@ -66,6 +65,5 @@ public class ClientController {
         final ResultMessageDTO response = clientTransactionService.addClientTranaction(addClientTransactionRequestDTO);
         return ResponseEntity.ok(response);
     }
-
 
 }

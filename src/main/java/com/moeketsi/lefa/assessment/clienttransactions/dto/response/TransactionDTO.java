@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
+import java.io.Serializable;
 import java.util.Date;
 
 import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.VALID_AMOUNT;
@@ -17,7 +18,7 @@ import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationCo
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TransactionDTO {
+public class TransactionDTO implements Serializable {
 
     private Date transactionDate;
     @DecimalMin(value = "0.0", message = VALID_AMOUNT)

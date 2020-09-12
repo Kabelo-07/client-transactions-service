@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class ClientTransactionMapper {
 
-    public TransactionResponseDTO mapToTransactionResponseDTO(Client client) {
+    public TransactionResponseDTO mapClientEntityToTransactionResponseDTO(Client client) {
         if (client == null)
             return TransactionResponseDTO.builder().build();
         PhysicalAddressDTO physicalAddressDTO = null;

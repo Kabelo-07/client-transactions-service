@@ -9,12 +9,15 @@ import com.moeketsi.lefa.assessment.clienttransactions.entity.Transaction;
 import com.moeketsi.lefa.assessment.clienttransactions.repository.ClientRepository;
 import com.moeketsi.lefa.assessment.clienttransactions.util.ClientTransactionMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.*;
 
 @Service
 @Slf4j
@@ -33,19 +36,19 @@ public class ClientTransactionServiceImpl implements ClientTransactionService {
     @Override
     public TransactionResponseDTO searchByFirstName(SearchByFirstNameRequestDTO searchByFirstNameRequestDTO) {
         Client client = clientRepository.findByFirstName(searchByFirstNameRequestDTO.getFirstName());
-        return mapper.mapToTransactionResponseDTO(client);
+        return mapper.mapClientEntityToTransactionResponseDTO(client);
     }
 
     @Override
     public TransactionResponseDTO searchByMobileNumber(SearchByPhoneNumberRequestDTO searchByPhoneNumberRequestDTO) {
         Client client = clientRepository.findByMobileNumber(searchByPhoneNumberRequestDTO.getPhoneNumber());
-        return mapper.mapToTransactionResponseDTO(client);
+        return mapper.mapClientEntityToTransactionResponseDTO(client);
     }
 
     @Override
     public TransactionResponseDTO searchByIdNumber(SearchByIdNumberRequestDTO searchByIdNumberRequestDTO) {
         Client client = clientRepository.findByIdNumber(searchByIdNumberRequestDTO.getIdNumber());
-        return mapper.mapToTransactionResponseDTO(client);
+        return mapper.mapClientEntityToTransactionResponseDTO(client);
     }
 
     @Override
@@ -53,12 +56,12 @@ public class ClientTransactionServiceImpl implements ClientTransactionService {
     public ResultMessageDTO addClient(AddClientRequestDTO addClientRequestDTO) {
         try {
             if(ifFieldsExist(addClientRequestDTO.getIdNumber(),addClientRequestDTO.getMobileNumber(),addClientRequestDTO.getFirstName()))
-                return ResultMessageDTO.builder().resultMessage("Client idNumber, mobile number or firstname already exists").build();
+                return ResultMessageDTO.builder().resultMessage(CLIENT_FIELD_ALREADY_EXISTS_RESULT_MESSAGE).build();
             clientRepository.save(mapper.mapToClientEntity(addClientRequestDTO));
-            return ResultMessageDTO.builder().resultMessage("Client Successfully added").build();
+            return ResultMessageDTO.builder().resultMessage(CLIENT_SUCCESSFUL_RESULT_MESSAGE).build();
         } catch (Exception ex) {
             log.error("Failed to add client : ", ex.getMessage());
-            return ResultMessageDTO.builder().resultMessage("Failed to add client").build();
+            return ResultMessageDTO.builder().resultMessage(FAILED_TO_ADD_CLIENT_RESULT_MESSAGE).build();
         }
     }
 
@@ -68,7 +71,7 @@ public class ClientTransactionServiceImpl implements ClientTransactionService {
         try {
             Client client = clientRepository.findByIdNumber(addClientTransactionRequestDTO.getIdNumber());
             if (client == null)
-                return ResultMessageDTO.builder().resultMessage("No Client Details found").build();
+                return ResultMessageDTO.builder().resultMessage(NO_CLIENT_DETAILS_FOUND_RESULT_MESSAGE).build();
             List<Transaction> transactions = new ArrayList<>();
             addClientTransactionRequestDTO.getTransactionAmounts().
                     forEach(transactionAmount -> {
@@ -79,19 +82,16 @@ public class ClientTransactionServiceImpl implements ClientTransactionService {
                     });
             client.setTransactions(transactions);
             clientRepository.save(client);
-            return ResultMessageDTO.builder().resultMessage("Transactions successfully added").build();
+            return ResultMessageDTO.builder().resultMessage(TRANSACTIONS_SUCCESSFULLY_ADDED_RESULT_MESSAGE).build();
         } catch (Exception ex) {
             log.error("Failed to add transactions : ", ex.getMessage());
-            return ResultMessageDTO.builder().resultMessage("Failed to add transactions").build();
+            return ResultMessageDTO.builder().resultMessage(FAILED_TO_TRANSACTIONS_ESULT_MESSAGE).build();
         }
     }
 
     private boolean ifFieldsExist(String idNumber,String mobileNumber,String firsname){
-        if(clientRepository.findByMobileNumber(mobileNumber) != null)
-            return true;
-        if(clientRepository.findByFirstName(firsname) != null)
-            return true;
-        if(clientRepository.findByIdNumber(idNumber) != null)
+        if(clientRepository.findByMobileNumber(mobileNumber) != null ||
+                clientRepository.findByFirstName(firsname) != null || clientRepository.findByIdNumber(idNumber) != null)
             return true;
         return false;
     }

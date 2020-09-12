@@ -1,6 +1,5 @@
 package com.moeketsi.lefa.assessment.clienttransactions.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +17,5 @@ public class SearchByFirstNameRequestDTO {
 
 
     @NotEmpty(message = FIRSTNAME_NON_NULL)
-    @JsonProperty("first_name")
     String firstName;
 }

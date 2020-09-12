@@ -12,16 +12,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class ClientTransactionsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ClientTransactionsApplication.class, args);
-	}
-	
-	@Bean
+    public static void main(String[] args) {
+        SpringApplication.run(ClientTransactionsApplication.class, args);
+    }
 
-	public Docket productApi() {
-		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.moeketsi.lefa.assessment"))
-				.build();
-	}
+    @Bean
+
+    public Docket productApi() {
+        return new Docket(DocumentationType.SWAGGER_2).select()
+                .apis(RequestHandlerSelectors.basePackage("com.moeketsi.lefa.assessment"))
+                .build();
+    }
 
 }

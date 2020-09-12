@@ -2,13 +2,11 @@ package com.moeketsi.lefa.assessment.clienttransactions.dto.request;
 
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
-import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.NON_NULL;
-import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.TRANSACTION_AMOUNT_SIZE_MUST;
-import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.VALIDATE_RSA_ID_NUMBER_REGEX;
-import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.VALID_RSA_ID_NUMBER;
+import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.*;
 
 @Data
 public class AddClientTransactionRequestDTO {
@@ -16,7 +14,6 @@ public class AddClientTransactionRequestDTO {
     @Size(min = 1, message = TRANSACTION_AMOUNT_SIZE_MUST)
     private List<Double> transactionAmounts;
 
-    @NotEmpty(message = NON_NULL)
     @Pattern(regexp = VALIDATE_RSA_ID_NUMBER_REGEX,
             message = VALID_RSA_ID_NUMBER)
     private String idNumber;

@@ -17,6 +17,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.REQUEST_VALIDATION_ERROR_TITLE;
+import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.SERVICE_UNAVAILABLE_ERROR_MESSAGE;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -26,11 +29,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         for (ObjectError error : errors) {
             String msg = error.getDefaultMessage();
-            if (msg != null) {
-                if (!errorMessages.contains(msg)) {
-                    errorMessages.add(msg);
-                }
-            }
+            if (msg != null && !errorMessages.contains(msg))
+                errorMessages.add(msg);
         }
         final StringBuilder friendlyMessage = new StringBuilder();
 
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         Problem problem = Problem.builder()
                 .instance(new URI(((ServletWebRequest) request).getRequest().getRequestURI()))
-                .title("Request Validation Error")
+                .title(REQUEST_VALIDATION_ERROR_TITLE)
                 .status(status.value())
                 .detail(toFriendlyMessage(ex.getBindingResult().getAllErrors()))
                 .build();
@@ -64,8 +64,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         Problem problem = Problem.builder()
                 .instance(new URI(((ServletWebRequest) request).getRequest().getRequestURI()))
-                .title("Request Validation Error")
+                .title(REQUEST_VALIDATION_ERROR_TITLE)
                 .status(HttpStatus.BAD_REQUEST.value())
+                .detail(ex.getMessage())
+                .build();
+
+        return ResponseEntity.ok(problem);
+    }
+
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<Object> handleUnknownExceptions(
+            Exception ex, WebRequest request) throws URISyntaxException {
+
+        Problem problem = Problem.builder()
+                .instance(new URI(((ServletWebRequest) request).getRequest().getRequestURI()))
+                .title(SERVICE_UNAVAILABLE_ERROR_MESSAGE)
+                .status(HttpStatus.SERVICE_UNAVAILABLE.value())
                 .detail(ex.getMessage())
                 .build();
 
