@@ -3,14 +3,15 @@ package com.moeketsi.lefa.assessment.clienttransactions.controller;
 import com.moeketsi.lefa.assessment.clienttransactions.dto.request.*;
 import com.moeketsi.lefa.assessment.clienttransactions.dto.response.ResultMessageDTO;
 import com.moeketsi.lefa.assessment.clienttransactions.dto.response.TransactionResponseDTO;
-import com.moeketsi.lefa.assessment.clienttransactions.repository.ClientRepository;
 import com.moeketsi.lefa.assessment.clienttransactions.service.ClientTransactionService;
-import com.moeketsi.lefa.assessment.clienttransactions.util.ClientTransactionMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -21,14 +22,10 @@ public class ClientController {
 
     private final ClientTransactionService clientTransactionService;
 
-    private final ClientRepository clientRepository;
-    private final ClientTransactionMapper clientTransactionMapper;
-
     @Autowired
-    public ClientController(final ClientRepository clientRepository, final ClientTransactionService clientTransactionService, ClientRepository clientRepository1, ClientTransactionMapper clientTransactionMapper) {
+    public ClientController(ClientTransactionService clientTransactionService) {
+
         this.clientTransactionService = clientTransactionService;
-        this.clientRepository = clientRepository1;
-        this.clientTransactionMapper = clientTransactionMapper;
     }
 
     @SneakyThrows
