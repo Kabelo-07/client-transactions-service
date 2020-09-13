@@ -39,3 +39,12 @@ Should you wish to build the project:
 
 - Once spring boot application is up and running.
 - Go to to http://localhost:8383/swagger-ui.html#/ (server port configured to 8383 - incase port 8080 is already running)
+
+----------------------------------------------------------------------------------------------------------------------------
+******************************
+* To connect to the database *
+******************************
+- Go to http://localhost:8383/h2-console
+- NB : JDBC URL must be : jdbc:h2:mem:testdb
+- Click on connect (No password required)
+- Please note that this is an in-memory DB, you can only access it when the application is running. Once the application stops running, connection to the db will  be stopped and data will be cleared.
