@@ -2,8 +2,9 @@
 ***************************
 * Required to run project *
 ***************************
+- JDK 11 is required to run this application
 - download and install from : https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
-- From CMD(Windows) or Terminal (linux) run : java -version
+- From CMD / Git bash(Windows) or Terminal (linux) run : java -version
  - You should see the following results:
 *********************************************************************************
 *    java version "11.0.8" 2020-07-14 LTS                                       *
@@ -15,7 +16,7 @@ Should you wish to build the project:
 
 - download and install gradle from https://gradle.org/install/. (Instructions and steps to follow are on the website)
 - Open terminal (ctrl + alt + t)
-- Run : ./gradle clean build 
+- Run : ./gradlew clean build 
 - Should you encounter issues please contact:
 - cell : 078 097 0873
 - email: lefamoeketsi65@gmail.com
