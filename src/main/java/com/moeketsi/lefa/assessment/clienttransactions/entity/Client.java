@@ -11,9 +11,9 @@ import java.util.List;
 public class Client {
 
     @Embedded
-    Address address;
+    private Address address;
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Transaction> transactions;
+    private List<Transaction> transactions;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter

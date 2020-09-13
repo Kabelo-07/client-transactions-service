@@ -12,7 +12,7 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_client_id"))
-    Client client;
+    private Client client;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

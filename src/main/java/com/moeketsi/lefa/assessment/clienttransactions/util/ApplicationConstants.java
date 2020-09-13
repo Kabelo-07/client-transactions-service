@@ -28,7 +28,6 @@ public class ApplicationConstants {
     public static final String TRANSACTIONS_SUCCESSFULLY_ADDED_RESULT_MESSAGE = "Transactions successfully added";
     public static final String FAILED_TO_TRANSACTIONS_ESULT_MESSAGE = "Failed to add transactions";
     public static final String REQUEST_VALIDATION_ERROR_TITLE = "Request Validation Error";
-    public static String DB_ERROR_MESSAGE = "Failed to complete db operation";
-    public static String SERVICE_UNAVAILABLE_ERROR_MESSAGE = "Service is currently unavailable please try again later";
+    public static final String SERVICE_UNAVAILABLE_ERROR_MESSAGE = "Service is currently unavailable please try again later";
 
 }
