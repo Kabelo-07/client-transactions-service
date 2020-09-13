@@ -5,10 +5,11 @@
 - download and install from : https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
 - From CMD(Windows) or Terminal (linux) run : java -version
  - You should see the following results:
-    java version "11.0.8" 2020-07-14 LTS
-    Java(TM) SE Runtime Environment 18.9 (build 11.0.8+10-LTS)
-    Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.8+10-LTS, mixed mode)
-
+*********************************************************************************
+*    java version "11.0.8" 2020-07-14 LTS                                       *
+*    Java(TM) SE Runtime Environment 18.9 (build 11.0.8+10-LTS)                 *
+*    Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.8+10-LTS, mixed mode)   *
+*********************************************************************************
 Should you wish to build thr project: 
 ====================================
 
