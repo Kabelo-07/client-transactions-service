@@ -9,7 +9,6 @@ import com.moeketsi.lefa.assessment.clienttransactions.entity.Transaction;
 import com.moeketsi.lefa.assessment.clienttransactions.repository.ClientRepository;
 import com.moeketsi.lefa.assessment.clienttransactions.util.ClientTransactionMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +54,7 @@ public class ClientTransactionServiceImpl implements ClientTransactionService {
     @Transactional
     public ResultMessageDTO addClient(AddClientRequestDTO addClientRequestDTO) {
         try {
-            if(ifFieldsExist(addClientRequestDTO.getIdNumber(),addClientRequestDTO.getMobileNumber(),addClientRequestDTO.getFirstName()))
+            if (ifFieldsExist(addClientRequestDTO.getIdNumber(), addClientRequestDTO.getMobileNumber(), addClientRequestDTO.getFirstName()))
                 return ResultMessageDTO.builder().resultMessage(CLIENT_FIELD_ALREADY_EXISTS_RESULT_MESSAGE).build();
             clientRepository.save(mapper.mapToClientEntity(addClientRequestDTO));
             return ResultMessageDTO.builder().resultMessage(CLIENT_SUCCESSFUL_RESULT_MESSAGE).build();
@@ -89,8 +88,8 @@ public class ClientTransactionServiceImpl implements ClientTransactionService {
         }
     }
 
-    private boolean ifFieldsExist(String idNumber,String mobileNumber,String firsname){
-        if(clientRepository.findByMobileNumber(mobileNumber) != null ||
+    private boolean ifFieldsExist(String idNumber, String mobileNumber, String firsname) {
+        if (clientRepository.findByMobileNumber(mobileNumber) != null ||
                 clientRepository.findByFirstName(firsname) != null || clientRepository.findByIdNumber(idNumber) != null)
             return true;
         return false;

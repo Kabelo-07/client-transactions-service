@@ -16,8 +16,10 @@ public class AddClientRequestDTO {
     @NotEmpty(message = LASTNAME_NON_NULL)
     private String lastName;
     private String fullName;
+    @NotEmpty(message = VALID_SA_MOBILE_NUMBER)
     @Pattern(regexp = VALIDATE_MOBILE_NUMBER_REGEX, message = VALID_SA_MOBILE_NUMBER)
     private String mobileNumber;
+    @NotEmpty(message = VALID_RSA_ID_NUMBER)
     @Pattern(regexp = VALIDATE_RSA_ID_NUMBER_REGEX, message = VALID_RSA_ID_NUMBER)
     private String idNumber;
 

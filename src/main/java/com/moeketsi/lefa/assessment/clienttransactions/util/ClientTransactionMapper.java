@@ -42,12 +42,14 @@ public class ClientTransactionMapper {
                 lastName(client.getLastName()).
                 fullName(client.getFullName()).
                 idNumber(client.getIdNumber()).
+                mobileNumber(client.getMobileNumber()).
                 transactions(transactionDTOs).
                 physicalAddressDTO(physicalAddressDTO)
                 .build();
     }
 
     public Client mapToClientEntity(AddClientRequestDTO addClientRequestDTO) {
+
         Client client = new Client();
         client.setFirstName(addClientRequestDTO.getFirstName());
         client.setLastName(addClientRequestDTO.getLastName());

@@ -20,6 +20,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Collections;
 import java.util.Date;
 
+import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.NO_CLIENT_DETAILS_FOUND_RESULT_MESSAGE;
+import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.TRANSACTION_AMOUNT_SIZE_MUST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -192,9 +194,9 @@ class ClientTransactionServiceTest {
         when(clientRepository.save(any(Client.class))).thenReturn(setUpClient());
         AddClientTransactionRequestDTO addClientTransactionRequestDTO = new AddClientTransactionRequestDTO();
         addClientTransactionRequestDTO.setTransactionAmounts(Collections.singletonList(20.01));
-        addClientTransactionRequestDTO.setIdNumber("1111111111111");
+        addClientTransactionRequestDTO.setIdNumber("");
         ResultMessageDTO message = clientTransactionService.addClientTranaction(addClientTransactionRequestDTO);
-        assertEquals("No Client Details found", message.getResultMessage());
+        assertEquals(NO_CLIENT_DETAILS_FOUND_RESULT_MESSAGE, message.getResultMessage());
     }
 
 }
