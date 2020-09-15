@@ -18,13 +18,14 @@ public class ApplicationConstants {
             "(( |-)(\\d{4})( |-)(\\d{3})|(\\d{7}))";
     public static final String VALIDATE_MOBILE_NUMBER_REGEX = "^27[0-9]{9}";
 
-    public static final String CLIENT_FIELD_ALREADY_EXISTS_RESULT_MESSAGE = "Client idNumber, mobile number or firstname already exists";
+    public static final String CLIENT_FIELD_ALREADY_EXISTS_RESULT_MESSAGE = "Client idNumber or mobile number already exists";
     public static final String CLIENT_SUCCESSFUL_RESULT_MESSAGE = "Client Successfully added";
     public static final String FAILED_TO_ADD_CLIENT_RESULT_MESSAGE = "Failed to add client";
     public static final String NO_CLIENT_DETAILS_FOUND_RESULT_MESSAGE = "No Client Details found";
     public static final String TRANSACTIONS_SUCCESSFULLY_ADDED_RESULT_MESSAGE = "Transactions successfully added";
-    public static final String FAILED_TO_TRANSACTIONS_ESULT_MESSAGE = "Failed to add transactions";
+    public static final String FAILED_TO_ADD_TRANSACTIONS_RESULT_MESSAGE = "Failed to add transactions";
     public static final String REQUEST_VALIDATION_ERROR_TITLE = "Request Validation Error";
     public static final String SERVICE_UNAVAILABLE_ERROR_MESSAGE = "Service is currently unavailable please try again later";
+    public static final String FAILED_DB_OPERATION = "Failed to complete database operation";
 
 }

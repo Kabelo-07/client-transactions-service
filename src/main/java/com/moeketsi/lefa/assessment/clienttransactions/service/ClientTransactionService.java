@@ -5,9 +5,11 @@ import com.moeketsi.lefa.assessment.clienttransactions.dto.request.*;
 import com.moeketsi.lefa.assessment.clienttransactions.dto.response.ResultMessageDTO;
 import com.moeketsi.lefa.assessment.clienttransactions.dto.response.TransactionResponseDTO;
 
+import java.util.List;
+
 public interface ClientTransactionService {
 
-    TransactionResponseDTO searchByFirstName(SearchByFirstNameRequestDTO searchByFirstNameRequestDTO);
+    List<TransactionResponseDTO> searchByFirstName(SearchByFirstNameRequestDTO searchByFirstNameRequestDTO);
 
     TransactionResponseDTO searchByMobileNumber(SearchByPhoneNumberRequestDTO searchByIdNumberRequestDTO);
 

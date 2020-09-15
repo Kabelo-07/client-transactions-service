@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("clients/")
@@ -30,8 +31,8 @@ public class ClientController {
 
     @SneakyThrows
     @PostMapping(path = "/search/firstname", consumes = {"application/json"}, produces = {"application/json"})
-    public ResponseEntity<TransactionResponseDTO> getTransactionsByFirstName(final @RequestBody @Valid SearchByFirstNameRequestDTO request) {
-        final TransactionResponseDTO response = clientTransactionService.searchByFirstName(request);
+    public ResponseEntity<List<TransactionResponseDTO>> getTransactionsByFirstName(final @RequestBody @Valid SearchByFirstNameRequestDTO request) {
+        final List<TransactionResponseDTO> response = clientTransactionService.searchByFirstName(request);
         return ResponseEntity.ok(response);
     }
 

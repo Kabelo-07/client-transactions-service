@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.NO_CLIENT_DETAILS_FOUND_RESULT_MESSAGE;
 import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.TRANSACTION_AMOUNT_SIZE_MUST;
@@ -114,11 +115,11 @@ class ClientTransactionServiceTest {
     @Test
     void searchByFirstNameTest() {
 
-        when(clientRepository.findByFirstName(anyString())).thenReturn(setUpClient());
+        when(clientRepository.findByFirstName(anyString())).thenReturn(Collections.singletonList(setUpClient()));
         when(mapper.mapClientEntityToTransactionResponseDTO(any(Client.class))).thenReturn(setUpTransactionResponseDTO());
-        TransactionResponseDTO transactionResponseDTO = clientTransactionService.searchByFirstName(
+        List<TransactionResponseDTO> transactionResponseDTOs = clientTransactionService.searchByFirstName(
                 SearchByFirstNameRequestDTO.builder().firstName("Zlatan").build());
-        assertEquals("Zlatan", transactionResponseDTO.getFirstName());
+        assertEquals("Zlatan", transactionResponseDTOs.get(0).getFirstName());
     }
 
     @Test
@@ -150,22 +151,6 @@ class ClientTransactionServiceTest {
     }
 
     @Test
-    void addClientExceptionTest() {
-        when(mapper.mapToClientEntity(any(AddClientRequestDTO.class))).thenReturn(new Client());
-        when(clientRepository.save(any(Client.class))).thenThrow(RuntimeException.class);
-        ResultMessageDTO resultMessageDTO = clientTransactionService.addClient(buildAddCilentRequest());
-        assertEquals("Failed to add client", resultMessageDTO.getResultMessage());
-
-    }
-
-    @Test
-    void addClientDuplicateTest() {
-        when(clientRepository.findByMobileNumber(anyString())).thenReturn(setUpClient());
-        ResultMessageDTO resultMessageDTO = clientTransactionService.addClient(buildAddCilentRequest());
-        assertEquals("Client idNumber, mobile number or firstname already exists", resultMessageDTO.getResultMessage());
-    }
-
-    @Test
     void addClientTranactionTestTest() {
         when(clientRepository.findByIdNumber(anyString())).thenReturn(setUpClient());
         when(clientRepository.save(any(Client.class))).thenReturn(setUpClient());
@@ -175,18 +160,6 @@ class ClientTransactionServiceTest {
         ResultMessageDTO message = clientTransactionService.addClientTranaction(addClientTransactionRequestDTO);
         assertEquals("Transactions successfully added", message.getResultMessage());
     }
-
-    @Test
-    void addClientTranactionTestExceptionTest() {
-        when(clientRepository.findByIdNumber(anyString())).thenThrow(RuntimeException.class);
-        when(clientRepository.save(any(Client.class))).thenReturn(setUpClient());
-        AddClientTransactionRequestDTO addClientTransactionRequestDTO = new AddClientTransactionRequestDTO();
-        addClientTransactionRequestDTO.setTransactionAmounts(Collections.singletonList(20.01));
-        addClientTransactionRequestDTO.setIdNumber("1111111111111");
-        ResultMessageDTO message = clientTransactionService.addClientTranaction(addClientTransactionRequestDTO);
-        assertEquals("Failed to add transactions", message.getResultMessage());
-    }
-
 
     @Test
     void addClientTranactionTestNoClientExistTest() {

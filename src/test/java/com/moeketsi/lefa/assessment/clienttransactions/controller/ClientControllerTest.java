@@ -16,6 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import static com.moeketsi.lefa.assessment.clienttransactions.util.ApplicationConstants.*;
 import static org.junit.Assert.assertEquals;
@@ -87,12 +89,12 @@ class ClientControllerTest {
     }
 
     @Test
-    void getTransactionsByFirstName() throws Exception {
+    void getTransactionsByFirstName(){
         SearchByFirstNameRequestDTO searchByFirstNameRequestDTO = new SearchByFirstNameRequestDTO("Zlatan");
-        when(clientTransactionService.searchByFirstName(any(SearchByFirstNameRequestDTO.class))).thenReturn(setUpTransactionResponseDTO());
-        ResponseEntity<TransactionResponseDTO> responseEntity = clientController.getTransactionsByFirstName(searchByFirstNameRequestDTO);
+        when(clientTransactionService.searchByFirstName(any(SearchByFirstNameRequestDTO.class))).thenReturn(Collections.singletonList(setUpTransactionResponseDTO()));
+        ResponseEntity<List<TransactionResponseDTO>> responseEntity = clientController.getTransactionsByFirstName(searchByFirstNameRequestDTO);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals("Zlatan", responseEntity.getBody().getFirstName());
+        assertEquals("Zlatan", responseEntity.getBody().get(0).getFirstName());
     }
 
     @Test
@@ -108,7 +110,7 @@ class ClientControllerTest {
     }
 
     @Test
-    void getTransactionsByPhoneNumber() throws Exception {
+    void getTransactionsByPhoneNumber()  {
         SearchByPhoneNumberRequestDTO searchByPhoneNumberRequestDTO = new SearchByPhoneNumberRequestDTO("27789007728");
         when(clientTransactionService.searchByMobileNumber(any(SearchByPhoneNumberRequestDTO.class))).thenReturn(setUpTransactionResponseDTO());
         ResponseEntity<TransactionResponseDTO> responseEntity = clientController.getTransactionsByPhoneNumber(searchByPhoneNumberRequestDTO);

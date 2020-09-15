@@ -23,7 +23,7 @@ public class Client {
     @Column(nullable = false)
     private String lastName;
     private String fullName;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String mobileNumber;
     @Column(unique = true, nullable = false, updatable = false, length = 13)
     private String idNumber;
